@@ -1,0 +1,7 @@
+{
+  "$type": "_Michael_Tinnin.Models.PackageData, _Michael_Tinnin",
+  "Packages": {
+    "$type": "System.Collections.Generic.List`1[[_Michael_Tinnin.Models.Package, _Michael_Tinnin]], mscorlib",
+    "$values": []
+  }
+}

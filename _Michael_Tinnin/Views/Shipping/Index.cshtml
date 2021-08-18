@@ -1,0 +1,253 @@
+﻿@model _Michael_Tinnin.Models.ShippingViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<style type="text/css">
+    table {
+        padding: 5px;
+    }
+
+    fieldset {
+        border-color: green;
+        margin-top: 20px;
+    }
+
+    .Output {
+        border: solid 2px orange;
+        display: inline-block;
+        margin-left: 50px;
+        padding: 5px;
+        width: 300px;
+    }
+
+    .field-validation-valid {
+        display: none;
+    }
+
+    .field-validation-error {
+        color: red;
+    }
+
+    .input-validation-error {
+        border: 1px solid red;
+    }
+</style>
+<h2>Shipping Program Homework</h2>
+@using (Html.BeginForm("Index", "Shipping", new { Area = "" }, FormMethod.Post, new { id = "MailForm" }))
+{
+    <fieldset>
+        <legend>Shipping Method</legend>
+        <table>
+            <tr>
+                <td>@Html.LabelFor(m => m.ShippingType, "Type of Shipping:")</td>
+                <td>
+                    @foreach (var package in Model.ShippingTypeList)
+                    {
+                        @Html.RadioButtonFor(m => m.ShippingType, package.Description) @package.Description
+                    }
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+
+    <fieldset>
+
+        <legend>From</legend>
+        <table>
+
+            <tr>
+                <td>
+                    First Name:
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m.Package.Sender.FirstName)
+                    @Html.ValidationMessageFor(m => m.Package.Sender.FirstName)
+                </td>
+            </tr>
+            <tr>
+                <td>Last Name:</td>
+                <td>
+                    @Html.TextBoxFor(m => m.Package.Sender.LastName)
+                    @Html.ValidationMessageFor(m => m.Package.Sender.LastName)
+                </td>
+            </tr>
+            <tr>
+                <td>Address:</td>
+                <td>
+                    @Html.TextBoxFor(m => m.Package.Sender.Address)
+                    @Html.ValidationMessageFor(m => m.Package.Sender.Address)
+                </td>
+            </tr>
+            <tr>
+                <td>City:</td>
+                <td>
+                    @Html.TextBoxFor(m => m.Package.Sender.City)
+                    @Html.ValidationMessageFor(m => m.Package.Sender.City)
+                </td>
+            </tr>
+            <tr>
+                <td>State:</td>
+                <td>
+                    @Html.DropDownListFor(m => m.Package.Sender.State, Model.StateList)
+
+                </td>
+            </tr>
+            <tr>
+                <td>Zip Code:</td>
+                <td>
+                    @Html.TextBoxFor(m => m.Package.Sender.ZipCode)
+                    @Html.ValidationMessageFor(m => m.Package.Sender.ZipCode)
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+    <fieldset>
+
+        <legend>To</legend>
+        <table>
+            <tr>
+                <td>
+                    First Name:
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m.Package.Recipient.FirstName)
+                    @Html.ValidationMessageFor(m => m.Package.Recipient.FirstName)
+                </td>
+            </tr>
+            <tr>
+                <td>Last Name:</td>
+                <td>
+                    @Html.TextBoxFor(m => m.Package.Recipient.LastName)
+                    @Html.ValidationMessageFor(m => m.Package.Recipient.LastName)
+                </td>
+            </tr>
+            <tr>
+                <td>Address:</td>
+                <td>
+                    @Html.TextBoxFor(m => m.Package.Recipient.Address)
+                    @Html.ValidationMessageFor(m => m.Package.Recipient.Address)
+                </td>
+            </tr>
+            <tr>
+                <td>City:</td>
+                <td>
+                    @Html.TextBoxFor(m => m.Package.Recipient.City)
+                    @Html.ValidationMessageFor(m => m.Package.Recipient.City)
+                </td>
+            </tr>
+            <tr>
+                <td>State:</td>
+                <td>
+                    @Html.DropDownListFor(m => m.Package.Recipient.State, Model.StateList)
+
+                </td>
+            </tr>
+            <tr>
+                <td>Zip Code:</td>
+                <td>
+                    @Html.TextBoxFor(m => m.Package.Recipient.ZipCode)
+                    @Html.ValidationMessageFor(m => m.Package.Recipient.ZipCode)
+                    @Html.HiddenFor(m => m.Package.Sender.UniqueId)
+                    @Html.HiddenFor(m => m.Package.Recipient.UniqueId)
+                    @Html.HiddenFor(m => m.Package.PackageUniqueId)
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+
+    <fieldset>
+
+        <legend>Package Information</legend>
+        <table>
+            <tr>
+                <td>
+                    Weight (ounces):
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m.Package.Weight)
+                </td>
+            </tr>
+            <tr>
+                <td>Cost Per Ounce:</td>
+                <td>
+                    @Html.TextBoxFor(m => m.Package.CostPerOunce)
+                </td>
+            </tr>
+            <tr>
+                <td>Shipping Cost:</td>
+                <td>
+                    <div id="Cost">
+                        @Html.TextBoxFor(m => m.Package.ExtendedCost, new { @readonly = "readonly" })
+                    </div>
+                </td>
+            </tr>
+
+        </table>
+    </fieldset>
+    <fieldset>
+        <legend>Shipping Label</legend>
+        <div id="ShippingLabel">
+            @Html.Raw(Model.Package.HtmlFormattedShippingLabel)
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>Actions</legend>
+        <table>
+            <tr>
+                <td>
+                    <input type="submit" value="Calculate" id="CalculateButton">
+                    
+                </td>
+                <td>
+                    <input type="submit" value="Save" id="SaveButton" name="action" />
+                </td>
+                <td>&nbsp;</td>
+            </tr>
+        </table>
+
+        
+    </fieldset>
+    
+
+}
+@section scripts{
+    @*Need this for client side data annotations to fire*@
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @*<script>
+        $(function () {
+            //handle form Letter button clicked
+            $("#CalculateButton").click(function () {
+
+                //make sure there are not any validation errors
+                if ($("#MailForm").valid()) {
+
+                    //first we have to post the data to the server
+                    $.ajax({
+                        type: "POST",
+                        url: "/Shipping", //post to Shipping controller
+                        async: true,
+                        data: $("#MailForm").serialize(), //this gets the form data
+                        dataType: 'json', //data type controller method is returning
+                        success: function (data) {
+                            console.log(data);
+                            //server is now returning json object, set the html
+                            //to what is in the package object
+                            $("#Cost").html(data.Package.ExtendedCost);
+                            $("#ShippingLabel").html(data.Package.HtmlFormattedShippingLabel);
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            console.log(errorThrown);
+                            console.log(XMLHttpRequest);
+                        }
+                    });
+                }
+            });
+        });
+    </script>*@
+}
+
+
+
+

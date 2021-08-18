@@ -1,0 +1,29 @@
+﻿@model _Michael_Tinnin.Models.FilesViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>File Examples</h2>
+@using (Html.BeginForm("Index", "Files", new { Area = "" }, FormMethod.Post, new { id = "FilesForm" }))
+{
+    <table>
+        <tr>
+            <td style="vertical-align:top">
+                @Html.LabelFor(m => m.FileLine)
+            </td>
+            <td>
+                @Html.TextAreaFor(m => m.FileLine, new { @cols = 70, @rows = 10 })
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align:top">
+                File Contents:
+            </td>
+            <td>
+                @Html.Raw(Model.FileContents)
+            </td>
+        </tr>
+    </table>
+    <input type="submit" value="Write to File" />
+}
+

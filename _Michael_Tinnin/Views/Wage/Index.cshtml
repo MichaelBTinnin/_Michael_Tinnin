@@ -1,0 +1,48 @@
+﻿@model _Michael_Tinnin.Models.WageViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Wage Calculator</h2>
+
+@using (Html.BeginForm("Index", "Wage", new { Area = "" }, FormMethod.Post, new { id = "WageForm" }))
+{
+    <table>
+        <tr>
+            <td>
+                Employee Number:
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.Wage.EmployeeNumber)
+            </td>
+        </tr>
+        <tr>
+            <td>Name:</td>
+            <td>
+                @Html.TextBoxFor(m => m.Wage.Name)
+            </td>
+        </tr>
+        <tr>
+            <td>Hours Worked:</td>
+            <td>
+                @Html.TextBoxFor(m => m.Wage.Hours)
+            </td>
+        </tr>
+        <tr>
+            <td>Hourly Rate:</td>
+            <td>
+                @Html.TextBoxFor(m => m.Wage.Rate)
+            </td>
+        </tr>
+        <tr>
+            <td>Wage:</td>
+            <td>
+                @Html.Raw(Model.Wage.Wage_)
+            </td>
+        </tr>
+
+    </table>
+    <input type="submit" value="Calculate"> 
+    
+}
+

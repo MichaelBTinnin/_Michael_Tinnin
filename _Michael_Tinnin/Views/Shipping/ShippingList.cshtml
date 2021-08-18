@@ -1,0 +1,57 @@
+﻿@model _Michael_Tinnin.Models.ShippingListViewModel
+@{
+    ViewBag.Title = "ShippingList";
+}
+
+<style type="text/css">
+    th, td {
+        padding: 5px;
+        border: solid 2px green;
+    }
+
+    .SortButton {
+        margin-right: 10px;
+    }
+</style>
+<h2>Shipping List</h2>
+
+    <a href="@Url.Action("Index", "Shipping", new { Area="", id = ""})" title="Add New Package"><img src="~/Images/add-1-iconSmall.png" alt="Add Package" /></a>
+    <a href="@Url.Action("ShippingList", "Shipping", new { Area="", sortDirection = "asc"})" title="Sort Ascending"><img src="~/Images/ascSmall.png" alt="Sort the List" /></a>
+    <a href="@Url.Action("ShippingList", "Shipping", new { Area="", sortDirection = "desc"})" title="Sort Descending"><img src="~/Images/descSmall.png" alt="Sort the List" /></a>
+
+    <table style="margin-top:10px;">
+        <tr>
+            <th>&nbsp;</th>
+            <th>From Shipping Label</th>
+            <th>To Shipping Label</th>
+            <th>Weight (Ounces)</th>
+            <th>Cost Per Ounce</th>
+            <th>Shipping Cost</th>
+            <th>&nbsp;</th>
+        </tr>
+        @foreach (var package in Model.Packages)
+        {
+            <tr>
+                <td>
+                    <a href="@Url.Action("Index", "Shipping", new { Area= "", id = package.PackageUniqueId})">
+                        <img src="~/images/Edit-iconSmall.png" alt="Edit" title="Edit" style="border:none" />
+                    </a>
+                </td>
+                <td>@Html.Raw(package.Sender.HtmlFormattedFormData)</td>
+                <td>@Html.Raw(package.Recipient.HtmlFormattedFormData)</td>
+                <td>@Html.Raw(package.Weight)</td>
+                <td>@Html.Raw(package.CostPerOunce)</td>
+                <td>@Html.Raw(package.ExtendedCost.ToString("C"))</td>
+                <td>
+                    <a href="@Url.Action("Delete", "Shipping", new { Area= "", id = package.PackageUniqueId})">
+                        <img src="~/images/delete-1-iconSmall.png" alt="Edit" title="Delete" style="border:none" />
+                    </a>
+                </td>
+            </tr>
+        }
+
+
+    </table>
+
+
+

@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TINNIN COFFEE ROASTERS</title>
+    @*Styles.Render("~/Content/css")*@ 
+    @Styles.Render("~/bundles/medernizer")
+    <link href="~/Content/PageStyles.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+    <div id="container">
+        <div id="header">
+            <h1>TINNIN COFFEE ROASTERS</h1>
+        </div>
+        <div id="LeftColumn">
+            <div id="navigation">
+                <ul>
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li> @*Parameters, ("page","method","controller")*@
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Mail", "Index", "Mail")</li>
+                    <li>@Html.ActionLink("Wage", "Index", "Wage")</li>
+                    <li>@Html.ActionLink("Package", "Index", "Shipping")</li>
+                    <li>@Html.ActionLink("List Example Hard Coded", "ShippingListHardCoded", "Shipping")</li>
+                    <li>@Html.ActionLink("Shipping List", "ShippingList", "Shipping")</li>
+                    <li>@Html.ActionLink("Files", "Index", "Files")</li>
+                    <li><a href="#">Next Item B</a></li>
+                    <li><a href="#">Next Item C</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="RightColumn">
+            <div id="MainContent">
+                @RenderBody()
+            </div>
+        </div>
+        <div id="footer">
+            Copyright info here
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>
+
+
+
+
+
+
+

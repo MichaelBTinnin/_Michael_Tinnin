@@ -1,0 +1,134 @@
+﻿@model _Michael_Tinnin.Models.MailViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<style type="text/css">
+    table {
+        padding: 5px;
+    }
+
+    fieldset {
+        border-color: green;
+        margin-top: 20px;
+    }
+
+    .Output {
+        border: solid 2px orange;
+        display: inline-block;
+        margin-left: 50px;
+        padding: 5px;
+        width: 300px;
+    }
+
+    .field-validation-valid {
+        display: none;
+    }
+
+    .field-validation-error {
+        color: red;
+    }
+
+    .input-validation-error {
+        border: 1px solid red;
+    }
+</style>
+<h2>Mailing Labels Homework</h2>
+@using (Html.BeginForm("Index", "Mail", new { Area = "" }, FormMethod.Post, new { id = "MailForm" }))
+{
+
+
+    <fieldset>
+
+        <legend>Mail Information</legend>
+        <table>
+            <tr>
+                <td>
+                    First Name:
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m.Mail.FirstName)
+                    @Html.ValidationMessageFor(m => m.Mail.FirstName)
+                </td>
+            </tr>
+            <tr>
+                <td>Last Name:</td>
+                <td>
+                    @Html.TextBoxFor(m => m.Mail.LastName)
+                    @Html.ValidationMessageFor(m => m.Mail.LastName)
+                </td>
+            </tr>
+            <tr>
+                <td>Address:</td>
+                <td>
+                    @Html.TextBoxFor(m => m.Mail.Address)
+                    @Html.ValidationMessageFor(m => m.Mail.Address)
+                </td>
+            </tr>
+            <tr>
+                <td>City:</td>
+                <td>
+                    @Html.TextBoxFor(m => m.Mail.City)
+                    @Html.ValidationMessageFor(m => m.Mail.City)
+                </td>
+            </tr>
+            <tr>
+                <td>State:</td>
+                <td>
+                    @Html.DropDownListFor(m => m.Mail.State, Model.StateList)
+                </td>
+            </tr>
+            <tr>
+                <td>Zip Code:</td>
+                <td>
+                    @Html.TextBoxFor(m => m.Mail.ZipCode)
+                    @Html.ValidationMessageFor(m => m.Mail.ZipCode)
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+    <fieldset>
+        <legend>Mail Label</legend>
+        <table>
+            <tr>
+                <td>
+                    <input type="button" value="Get Description" onclick="getDescription()" />
+                </td>
+                <td>
+                    <div class="Output" id="DisplayResult" />
+                    <div/>
+                    
+
+
+                </td>
+            </tr>
+        </table>
+        
+    </fieldset>
+}
+<script type="text/javascript">
+    function getDescription() {
+
+        //get the data from the inputs
+        var Mail_FirstName = document.getElementById('Mail_FirstName');
+        var Mail_LastName = document.getElementById('Mail_LastName');
+        var Mail_Address = document.getElementById('Mail_Address');
+        var Mail_City = document.getElementById('Mail_City');
+        var State = Mail_State.options[Mail_State.selectedIndex].value;
+        var Mail_ZipCode = document.getElementById('Mail_ZipCode');
+
+        //build up the result string
+        var result = Mail_FirstName.value + " " + Mail_LastName.value + "<br/>";
+        result = result + Mail_Address.value + "<br/>";
+        result = result + Mail_City.value + " , " + State + " " + Mail_ZipCode.value + "<br/>";
+        console.log(result);
+
+        //get the html element that holds the result and put our string there
+        var DisplayResult = document.getElementById('DisplayResult');
+        DisplayResult.innerHTML = result;
+    }
+</script>
+
+
+
